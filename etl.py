@@ -7,14 +7,14 @@ from sql_queries import *
 
 def process_song_file(cur, filepath):
     # open song file
-    df = 
+    df = pd.read_json(filepath, typ='series')
 
     # insert song record
-    song_data = 
+    song_data = (df.song_id, df.title, df.artist_id, df.year, df.duration)
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = 
+    artist_data = (df.artist_id, df.artist_name, df.artist_location, df.artist_latitude, df.artist_longtiutde)
     cur.execute(artist_table_insert, artist_data)
 
 
