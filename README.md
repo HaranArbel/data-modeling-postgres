@@ -1,7 +1,7 @@
 # Data Modeling with Postgres
 
 This project is used to create a Postgres database optimized for analysing data on songs and user activity. 
-this is done by first creating a star schema of the data, and then creating an ETL pipeline to that transfers files in two local directories into the database tables. 
+this is done by first creating a star schema of the data, and then creating an ETL pipeline that transfers files in two local directories into the database tables. 
 
 ## Project Files
  
