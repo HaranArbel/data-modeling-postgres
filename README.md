@@ -5,7 +5,7 @@ this is done by first creating a star schema of the data, and then creating an E
 
 ## Project Files
  
-1. sql_queries.py - contains all the SQL queries used to define teh database schema, create the tables and insert records into the tables.
+1. sql_queries.py - contains all the SQL queries used to define the database schema, create the tables and insert records into the tables.
 2. create_tables.py - creates and connects to the database, creates the fact and dimension tables.
 3. etl.py - an implementation of the ETL pipeline that transfers the data from the files into the database.
 
@@ -18,7 +18,7 @@ There are two datasets for this projects:
 
 ## Database Tables
 
-there are five database tables:
+There are five database tables:
 
 1. A songplay table
 2. A user
