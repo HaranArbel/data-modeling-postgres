@@ -11,7 +11,7 @@ time_table_drop = "DROP TABLE IF EXISTS times;"
 songplay_table_create = """
     CREATE TABLE songplays
     (
-    songplay_id INT, 
+    songplay_id INT PRIMARY KEY, 
     start_time TIMESTAMP,
     user_id INT,
     level INT,
@@ -26,7 +26,7 @@ songplay_table_create = """
 user_table_create = """
     CREATE TABLE users 
     (
-    user_id INT,
+    user_id INT PRIMARY KEY,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     gender VARCHAR(50),
@@ -37,7 +37,7 @@ user_table_create = """
 song_table_create = """
     CREATE TABLE songs 
     (
-    song_id INT,
+    song_id INT PRIMARY KEY,
     title VARCHAR(255),
     artist_id INT,
     year INT,
@@ -48,7 +48,7 @@ song_table_create = """
 artist_table_create = """
     CREATE TABLE artists 
     (
-    artist_id INT,
+    artist_id INT PRIMARY KEY,
     name VARCHAR(255), 
     location VARCHAR(255), 
     latitude INT, 
@@ -59,7 +59,7 @@ artist_table_create = """
 time_table_create = """
     CREATE TABLE times 
     (
-    start_time TIMESTAMP, 
+    start_time TIMESTAMP PRIMARY KEY, 
     hour INT, 
     day VARCHAR(50),
     week INT,
@@ -98,8 +98,16 @@ time_table_insert = """
 
 # FIND SONGS
 
-song_select = ("""
-""")
+song_select = """
+    SELECT song_id, artists.artist_id 
+    FROM songs 
+    JOIN artists 
+    ON songs.artist_id == artists.id
+    WHERE 
+        songs.title = %s AND 
+        artists.name = %s AND 
+        songs.duration = %s
+"""
 
 # QUERY LISTS
 
