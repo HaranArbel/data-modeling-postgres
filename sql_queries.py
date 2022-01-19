@@ -11,15 +11,15 @@ time_table_drop = "DROP TABLE IF EXISTS times;"
 songplay_table_create = """
     CREATE TABLE songplays
     (
-    songplay_id INT PRIMARY KEY, 
-    start_time TIMESTAMP,
-    user_id INT,
-    level INT,
+    songplay_id SERIAL PRIMARY KEY, 
+    start_time TIMESTAMP NOT NULL,
+    user_id INT NOT NULL,
+    level VARCHAR(255) NOT NULL,
     song_id INT,
-    artist_id INT,
-    session_id INT,
-    location VARCHAR(255),
-    user_agent INT
+    artist_id VARCHAR(255),
+    session_id INT NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    user_agent VARCHAR(255) NOT NULL
     );
 """
 
@@ -27,32 +27,32 @@ user_table_create = """
     CREATE TABLE users 
     (
     user_id INT PRIMARY KEY,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    gender VARCHAR(50),
-    level INT
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    gender VARCHAR(50) NOT NULL,
+    level VARCHAR(255) NOT NULL
     );
 """
 
 song_table_create = """
     CREATE TABLE songs 
     (
-    song_id INT PRIMARY KEY,
-    title VARCHAR(255),
-    artist_id INT,
-    year INT,
-    duration INT
+    song_id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    artist_id VARCHAR(255) NOT NULL,
+    year INT NOT NULL,
+    duration INT NOT NULL
     );
 """
 
 artist_table_create = """
     CREATE TABLE artists 
     (
-    artist_id INT PRIMARY KEY,
-    name VARCHAR(255), 
-    location VARCHAR(255), 
+    artist_id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL, 
+    location VARCHAR(255) NOT NULL, 
     latitude INT, 
-    longtitude INT
+    longitude INT
     );
 """
 
@@ -60,40 +60,45 @@ time_table_create = """
     CREATE TABLE times 
     (
     start_time TIMESTAMP PRIMARY KEY, 
-    hour INT, 
-    day VARCHAR(50),
-    week INT,
-    month INT,
-    year INT, 
-    WEEKDAY BOOLEAN
+    hour INT NOT NULL, 
+    day VARCHAR(50) NOT NULL,
+    week INT NOT NULL,
+    month INT NOT NULL,
+    year INT NOT NULL, 
+    WEEKDAY INT NOT NULL
     );
 """
 
 # INSERT RECORDS
 
 songplay_table_insert = """
-    INSERT INTO sonplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (songplay_id) DO NOTHING
 """
 
 user_table_insert = """
     INSERT INTO users (user_id, first_name, last_name, gender, level)
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (user_id) DO NOTHING
 """
 
 song_table_insert = """
     INSERT INTO songs (song_id, title, artist_id, year, duration)
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (song_id) DO NOTHING
 """
 
 artist_table_insert = """
-    INSERT INTO artists (artist_id, name, location, latitude, longtiutde)
+    INSERT INTO artists (artist_id, name, location, latitude, longitude)
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (artist_id) DO NOTHING
 """
 
 time_table_insert = """
-    INSERT INTO times (start_time, hour, day, week, months, year, weekday)
+    INSERT INTO times (start_time, hour, day, week, month, year, weekday)
     VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (start_time) DO NOTHING
 """
 
 # FIND SONGS
@@ -102,7 +107,7 @@ song_select = """
     SELECT song_id, artists.artist_id 
     FROM songs 
     JOIN artists 
-    ON songs.artist_id == artists.id
+    ON songs.artist_id = artists.artist_id
     WHERE 
         songs.title = %s AND 
         artists.name = %s AND 
