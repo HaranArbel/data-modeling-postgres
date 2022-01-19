@@ -31,5 +31,5 @@ there are five database tables:
 
 ## Usage
 
-1. Run `create_tables.py` to reset your database tables before each time you run the ETL scripts. 
+1. Run `create_tables.py` to reset your database tables before each time you run the ETL script. 
 2. Run `etl.py` to read and process files from `song_data` and `log_data` and load them into the tables. 
