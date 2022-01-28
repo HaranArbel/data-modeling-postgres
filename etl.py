@@ -6,6 +6,11 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+    this function takes a song file from the song_data
+    folder and inserts the song and the artist of the song
+    into the song and artist tables
+    """
     # open song file
     df = pd.read_json(filepath, typ='series')
 
@@ -19,6 +24,11 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    this function takes a log file from the log_data
+    folder and inserts the songplay, user and time into
+    songplay, user and time tables
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -61,6 +71,10 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    this function processes all files from log_data and
+    song_data and inserts their data into the database tables
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -85,6 +99,12 @@ def main():
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
     process_data(cur, conn, filepath='data/log_data', func=process_log_file)
+
+    #todo remove
+    cur.execute("select * from songplays WHERE song_id is not null and artist_id is not null")
+    results = cur.fetchall()
+    print("Result of `select * from songplays WHERE song_id is not null and artist_id is not null`:")
+    print(results)
 
     conn.close()
 
