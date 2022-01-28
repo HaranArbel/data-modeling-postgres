@@ -1,11 +1,11 @@
-## Data Modeling with Postgres
+# Data Modeling with Postgres
 
-This project is used to create a Postgres database optimized for analysing data on songs and user activity. 
-this was done by first creating a star schema of the data, and then creating an ETL pipeline to that transfers files in two local directories into the database tables. 
+This project is used to create a Postgres database optimized for analyzing data on songs and user activity. 
+this is done by first creating a star schema of the data, and then creating an ETL pipeline that transfers files in two local directories into the database tables. 
 
 ## Project Files
  
-1. sql_queries.py - contains all the SQL queries used to define teh database schema, create the tables and insert records into the tables.
+1. sql_queries.py - contains all the SQL queries used to define the database schema, create the tables and insert records into the tables.
 2. create_tables.py - creates and connects to the database, creates the fact and dimension tables.
 3. etl.py - an implementation of the ETL pipeline that transfers the data from the files into the database.
 
@@ -18,7 +18,7 @@ There are two datasets for this projects:
 
 ## Database Tables
 
-there are five database tables:
+There are five database tables:
 
 1. A songplay table
 2. A user
@@ -31,5 +31,5 @@ there are five database tables:
 
 ## Usage
 
-1. Run `create_tables.py` to reset your database tables before each time you run the ETL scripts. 
+1. Run `create_tables.py` to reset your database tables before each time you run the ETL script. 
 2. Run `etl.py` to read and process files from `song_data` and `log_data` and load them into the tables. 
