@@ -26,7 +26,7 @@ There are five database tables:
 4. An artist table
 5. A time table
 
-![star schema](/star_schema.jpg)
+![database_schema](/database_schema.png)
 
 
 ## Usage
